@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant Reviews</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>List of Restaurants</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Restaurant</th>
+        <th>Stars</th>
+        <th>Comment</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="restaurantList">
+      <!-- Restaurants will be added dynamically using JavaScript -->
+    </tbody>
+  </table>
+</div>
+
+<script>
+  // Sample data of restaurants
+  const restaurants = [
+    { name: "Restaurant 1", stars: "", comment: "" },
+    { name: "Restaurant 2", stars: "", comment: "" },
+    { name: "Restaurant 3", stars: "", comment: "" },
+    { name: "Restaurant 4", stars: "", comment: "" },
+    { name: "Restaurant 5", stars: "", comment: "" },
+    { name: "Restaurant 6", stars: "", comment: "" },
+    { name: "Restaurant 7", stars: "", comment: "" },
+    { name: "Restaurant 8", stars: "", comment: "" },
+    { name: "Restaurant 9", stars: "", comment: "" },
+    { name: "Restaurant 10", stars: "", comment: "" },
+  ];
+
+  // Function to display restaurants
+  function displayRestaurants() {
+    const tableBody = document.getElementById("restaurantList");
+    tableBody.innerHTML = "";
+
+    restaurants.forEach((restaurant, index) => {
+      const row = document.createElement("tr");
+
+      const nameCell = document.createElement("td");
+      nameCell.textContent = restaurant.name;
+      row.appendChild(nameCell);
+
+      const starsCell = document.createElement("td");
+      starsCell.innerHTML = `
+        <select id="rating-${index}">
+          <option value="1">1 star</option>
+          <option value="2">2 stars</option>
+          <option value="3">3 stars</option>
+          <option value="4">4 stars</option>
+          <option value="5">5 stars</option>
+        </select>
+      `;
+      row.appendChild(starsCell);
+
+      const commentCell = document.createElement("td");
+      commentCell.innerHTML = `<textarea id="comment-${index}" rows="3" cols="20"></textarea>`;
+      row.appendChild(commentCell);
+
+      const actionCell = document.createElement("td");
+      const button = document.createElement("button");
+      button.textContent = "Submit";
+      button.addEventListener("click", () => {
+        submitReview(index);
+      });
+      actionCell.appendChild(button);
+      row.appendChild(actionCell);
+
+      tableBody.appendChild(row);
+    });
+  }
+
+  // Function to submit review
+  function submitReview(index) {
+    const selectedRating = document.getElementById(`rating-${index}`).value;
+    const comment = document.getElementById(`comment-${index}`).value;
+
+    // Here you can send the review data to your backend or display a message
+    alert(`Thank you for your rating of ${selectedRating} stars and your comment: "${comment}"`);
+  }
+
+  // Display restaurants on page load
+  displayRestaurants();
+</script>
+
+</body>
+</html>
